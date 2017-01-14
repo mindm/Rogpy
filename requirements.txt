@@ -1,2 +1,2 @@
-bearlibterminal==0.14.8
+bearlibterminal==0.15.0
 esper==0.9.7
