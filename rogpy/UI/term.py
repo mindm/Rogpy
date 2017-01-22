@@ -99,6 +99,8 @@ class Terminal():
         self.TK_RED = bear.color_from_name("red")
         self.TK_BLUE = bear.color_from_name("blue")
         self.TK_GREY = bear.color_from_name("grey")
+        self.TK_BLACK = bear.color_from_name("#000000")
+        self.TK_WHITE = bear.color_from_name("#FFFFFF")
         #self.TK_GREEN = bear.color_from_name("#00FF2F")
 
     @contextmanager

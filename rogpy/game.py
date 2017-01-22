@@ -304,40 +304,36 @@ with T.mgr() as stdscreen:
 
     # Create a tree
     tree = world.create_entity()
-    world.add_component(tree, Renderable('^', 2, 3, True, False))
+    world.add_component(tree, Renderable('^', 2, 3, True, False, color=T.TK_WHITE))
 
     world.process()
     myscreen.refresh()
     while True:
         myscreen.refresh()
         c = myscreen.getch()
+        moving_to = None
 
         if c == T.KEY_DOWN:
-            if world.has_component(player, Velocity):
-                if can_move(world, player, [1, 0]):
-                    world.component_for_entity(player, Velocity).y = 1
-                else:
-                    continue
+            moving_to = [1, 0]
         if c == T.KEY_UP:
-            if world.has_component(player, Velocity):
-                if can_move(world, player, [-1, 0]):
-                    world.component_for_entity(player, Velocity).y = -1
-                else:
-                    continue
+            moving_to = [-1, 0]
         if c == T.KEY_RIGHT:
-            if world.has_component(player, Velocity):
-                if can_move(world, player, [0, 1]):
-                    world.component_for_entity(player, Velocity).x = 1
-                else:
-                    continue
+            moving_to = [0, 1]
         if c == T.KEY_LEFT:
+            moving_to = [0, -1]
+        if c == T.DOT:
+            moving_to = False
+
+        if moving_to:
             if world.has_component(player, Velocity):
-                if can_move(world, player, [0, -1]):
-                    world.component_for_entity(player, Velocity).x = -1
+                if can_move(world, player, moving_to):
+                    world.component_for_entity(player, Velocity).x = moving_to[1]
+                    world.component_for_entity(player, Velocity).y = moving_to[0]
                 else:
                     continue
-        if c == T.DOT:
+        elif moving_to == False:
             pass
+        
 
         world.process()
 
